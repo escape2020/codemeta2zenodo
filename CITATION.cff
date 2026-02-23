@@ -1,0 +1,79 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the ESCAPE Open-source Software and Service Repository paper."
+type: software
+title: "CodeMeta to Zenodo Converter"
+abstract: "GitHub Action to convert codemeta.json files to .zenodo.json format using the EOSSR library for research software metadata management."
+authors:
+  - family-names: "Vuillaume"
+    given-names: "Thomas"
+    email: "thomas.vuillaume@lapp.in2p3.fr"
+    orcid: "https://orcid.org/0000-0002-5686-2078"
+    affiliation: "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+repository-code: "https://github.com/escape2020/codemeta2zenodo"
+url: "https://github.com/escape2020/codemeta2zenodo"
+license: MIT
+keywords:
+  - "codemeta"
+  - "zenodo"
+  - "metadata"
+  - "github-actions"
+  - "research-software"
+  - "FAIR"
+  - "open-science"
+version: 1.0.0
+date-released: "2026-02-23"
+preferred-citation:
+  type: article
+  title: "The ESCAPE Open-source Software and Service Repository"
+  authors:
+    - family-names: "Vuillaume"
+      given-names: "Thomas"
+      orcid: "https://orcid.org/0000-0002-5686-2078"
+    - family-names: "Al-Turany"
+      given-names: "Mohammad"
+    - family-names: "Füßling"
+      given-names: "Matthias"
+    - family-names: "Gal"
+      given-names: "Tamas"
+      orcid: "https://orcid.org/0000-0001-7821-8673"
+    - family-names: "Garcia"
+      given-names: "Enrique"
+      orcid: "https://orcid.org/0000-0003-2224-4594"
+    - family-names: "Graf"
+      given-names: "Kay"
+      orcid: "https://orcid.org/0000-0002-1921-5568"
+    - family-names: "Hughes"
+      given-names: "Gareth"
+      orcid: "https://orcid.org/0000-0002-7653-6456"
+    - family-names: "Kettenis"
+      given-names: "Mark"
+      orcid: "https://orcid.org/0000-0002-6156-5617"
+    - family-names: "Kresan"
+      given-names: "Dmytro"
+    - family-names: "Schnabel"
+      given-names: "Jutta"
+    - family-names: "Tacke"
+      given-names: "Christian"
+      orcid: "https://orcid.org/0000-0002-5321-8404"
+    - family-names: "Verkouter"
+      given-names: "Marjolein"
+  journal: "Open Research Europe"
+  volume: 3
+  number: 46
+  year: 2023
+  doi: "10.12688/openreseurope.15692.2"
+  notes: "version 2; peer review: 5 approved"
+references:
+  - type: software
+    title: "eossr"
+    abstract: "Tools for managing scientific software metadata including codemeta2zenodo converter"
+    repository-code: "https://gitlab.com/escape-ossr/eossr"
+    url: "https://gitlab.com/escape-ossr/eossr"
+  - type: article
+    title: "CodeMeta: an exchange schema for software metadata"
+    authors:
+      - family-names: "Jones"
+        given-names: "Matthew B."
+    journal: "KNB Data Repository"
+    year: 2017
+    doi: "10.5063/schema/codemeta-2.0"

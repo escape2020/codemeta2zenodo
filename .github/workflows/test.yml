@@ -1,0 +1,118 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Test Suite
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate action.yml
+        run: |
+          echo "Validating action metadata..."
+          if [ ! -f action.yml ]; then
+            echo "Error: action.yml not found"
+            exit 1
+          fi
+          echo "✓ action.yml exists"
+
+      - name: Validate entrypoint script
+        run: |
+          echo "Validating entrypoint script..."
+          bash -n entrypoint.sh
+          echo "✓ entrypoint.sh syntax is valid"
+
+      - name: Run shell tests
+        run: |
+          chmod +x tests/test_entrypoint.sh
+          bash tests/test_entrypoint.sh
+
+      - name: Validate metadata files
+        run: |
+          echo "Validating metadata files..."
+
+          # Validate codemeta.json
+          if command -v python3 >/dev/null 2>&1; then
+            python3 -c "import json; json.load(open('codemeta.json'))"
+            echo "✓ codemeta.json is valid JSON"
+          fi
+
+          # Check CITATION.cff exists
+          if [ -f CITATION.cff ]; then
+            echo "✓ CITATION.cff exists"
+          else
+            echo "✗ CITATION.cff not found"
+            exit 1
+          fi
+
+  integration-test:
+    runs-on: ubuntu-latest
+    name: Integration Test
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create test codemeta.json
+        run: |
+          cat > codemeta.json <<'EOF'
+          {
+            "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+            "@type": "SoftwareSourceCode",
+            "name": "test-software",
+            "description": "A test software project",
+            "version": "1.0.0",
+            "author": [{
+              "@type": "Person",
+              "givenName": "Test",
+              "familyName": "User"
+            }]
+          }
+          EOF
+
+      - name: Test action (should succeed)
+        uses: ./
+        with:
+          codemeta_file: "codemeta.json"
+
+      - name: Verify output was created
+        run: |
+          if [ ! -f .zenodo.json ]; then
+            echo "Error: .zenodo.json was not created"
+            exit 1
+          fi
+          echo "✓ .zenodo.json was created successfully"
+          cat .zenodo.json
+
+      - name: Test action with overwrite
+        uses: ./
+        with:
+          codemeta_file: "codemeta.json"
+          overwrite: true
+
+      - name: Test action should fail without overwrite
+        id: fail-test
+        continue-on-error: true
+        uses: ./
+        with:
+          codemeta_file: "codemeta.json"
+          overwrite: false
+
+      - name: Verify failure behavior
+        run: |
+          if [ "${{ steps.fail-test.outcome }}" == "failure" ]; then
+            echo "✓ Action correctly failed when .zenodo.json exists and overwrite is false"
+          else
+            echo "✗ Action should have failed but did not"
+            exit 1
+          fi

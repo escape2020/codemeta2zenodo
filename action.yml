@@ -1,0 +1,26 @@
+name: "CodeMeta to Zenodo Converter"
+description: "Convert codemeta.json files to .zenodo.json format using eossr-codemeta2zenodo"
+branding:
+  icon: "file-text"
+  color: "blue"
+
+inputs:
+  codemeta_file:
+    description: "Path to the codemeta.json file"
+    required: false
+    default: "codemeta.json"
+  overwrite:
+    description: "Overwrite existing .zenodo.json file if it exists"
+    required: false
+    default: "false"
+
+outputs:
+  zenodo_file:
+    description: "Path to the generated .zenodo.json file"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.codemeta_file }}
+    - ${{ inputs.overwrite }}

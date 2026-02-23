@@ -1,0 +1,7 @@
+.zenodo.json
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

@@ -1,0 +1,43 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "example-research-software",
+  "description": "An example research software for testing metadata conversion",
+  "version": "1.0.0",
+  "license": "https://spdx.org/licenses/MIT",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Jane",
+      "familyName": "Researcher",
+      "email": "jane.researcher@university.edu",
+      "@id": "https://orcid.org/0000-0001-2345-6789"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "John",
+      "familyName": "Developer",
+      "email": "john.dev@university.edu"
+    }
+  ],
+  "programmingLanguage": [
+    {
+      "@type": "ComputerLanguage",
+      "name": "Python",
+      "version": "3.9",
+      "url": "https://www.python.org/"
+    }
+  ],
+  "codeRepository": "https://github.com/example/research-software",
+  "dateCreated": "2025-01-15",
+  "dateModified": "2026-02-23",
+  "keywords": [
+    "astronomy",
+    "data-analysis",
+    "research-software"
+  ],
+  "applicationCategory": "Science",
+  "funding": "European Research Council Grant No. 123456"
+}
