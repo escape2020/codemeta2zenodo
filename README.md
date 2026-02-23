@@ -44,6 +44,7 @@ Allow overwriting an existing `.zenodo.json` file:
   uses: escape2020/codemeta2zenodo@v1.1.0
   with:
     overwrite: true
+```
 
 ### Add ESCAPE2020 Community and Grant
 
