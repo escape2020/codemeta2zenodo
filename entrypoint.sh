@@ -37,4 +37,12 @@ if [ ! -f "${ZENODO_FILE}" ]; then
     exit 1
 fi
 
-echo "::notice::Successfully converted ${CODEMETA_FILE} to ${ZENODO_FILE}"
+# Validate the generated .zenodo.json file
+echo "::group::Validating .zenodo.json"
+if ! eossr-zenodo-validator "${ZENODO_FILE}"; then
+    echo "::error::Validation failed for ${ZENODO_FILE}"
+    exit 1
+fi
+echo "::endgroup::"
+
+echo "::notice::Successfully converted and validated ${CODEMETA_FILE} to ${ZENODO_FILE}"

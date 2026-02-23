@@ -9,6 +9,7 @@ This action uses the `eossr-codemeta2zenodo` command to convert metadata descrip
 - 🚀 Automatically converts CodeMeta metadata to Zenodo format
 - 🔧 Configurable input file path (defaults to `codemeta.json`)
 - 🛡️ Safe by default: fails if output file exists unless explicitly overwritten
+- ✅ Validates `.zenodo.json` with `eossr-zenodo-validator`
 - 📦 Uses the official eossr container
 
 ## Usage
@@ -19,7 +20,7 @@ Add this step to your workflow to convert `codemeta.json` in your repository roo
 
 ```yaml
 - name: Convert CodeMeta to Zenodo
-  uses: escape2020/codemeta2zenodo@v1
+  uses: escape2020/codemeta2zenodo@v1.1.0
 ```
 
 ### Custom Input File
@@ -28,7 +29,7 @@ The default behaviour will look for a `codemeta.json` file at the ROOT of your r
 
 ```yaml
 - name: Convert CodeMeta to Zenodo
-  uses: escape2020/codemeta2zenodo@v1
+  uses: escape2020/codemeta2zenodo@v1.1.0
   with:
     codemeta_file: 'metadata/codemeta.json'
 ```
@@ -39,7 +40,7 @@ Allow overwriting an existing `.zenodo.json` file:
 
 ```yaml
 - name: Convert CodeMeta to Zenodo
-  uses: escape2020/codemeta2zenodo@v1
+  uses: escape2020/codemeta2zenodo@v1.1.0
   with:
     overwrite: true
 ```
@@ -80,7 +81,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Convert CodeMeta to Zenodo
-        uses: escape2020/codemeta2zenodo@v1
+        uses: escape2020/codemeta2zenodo@v1.1.0
         with:
           overwrite: true
 
@@ -112,12 +113,12 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Convert CodeMeta to Zenodo
-        uses: escape2020/codemeta2zenodo@v1
+        uses: escape2020/codemeta2zenodo@v1.1.0
         with:
           overwrite: true
 
       - name: Upload .zenodo.json as release asset
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

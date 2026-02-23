@@ -1,5 +1,5 @@
 name: "CodeMeta to Zenodo Converter"
-description: "Convert codemeta.json files to .zenodo.json format using eossr-codemeta2zenodo"
+description: "Convert codemeta.json to .zenodo.json and validate the output"
 branding:
   icon: "file-text"
   color: "blue"
