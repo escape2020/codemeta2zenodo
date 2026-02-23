@@ -1,6 +1,6 @@
 # CodeMeta to Zenodo Converter
 
-GitHub Action to convert `codemeta.json` files to `.zenodo.json` format using the [EOSSR](https://gitlab.com/escape-ossr/eossr) library.
+GitHub Action to convert `codemeta.json` files to `.zenodo.json` format using the [eOSSR](https://gitlab.com/escape-ossr/eossr) library.
 
 This action uses the `eossr-codemeta2zenodo` command to convert metadata descriptive files from the CodeMeta schema to the Zenodo schema, making it easy to automatically generate Zenodo-compatible metadata for your software releases.
 
@@ -10,6 +10,7 @@ This action uses the `eossr-codemeta2zenodo` command to convert metadata descrip
 - 🔧 Configurable input file path (defaults to `codemeta.json`)
 - 🛡️ Safe by default: fails if output file exists unless explicitly overwritten
 - ✅ Validates `.zenodo.json` with `eossr-zenodo-validator`
+- 🎯 Optional `--add-escape2020` support to add ESCAPE2020 community/grant metadata
 - 📦 Uses the official eossr container
 
 ## Usage
@@ -43,7 +44,18 @@ Allow overwriting an existing `.zenodo.json` file:
   uses: escape2020/codemeta2zenodo@v1.1.0
   with:
     overwrite: true
+
+### Add ESCAPE2020 Community and Grant
+
+Option to add the ESCAPE community and grant in the metadata:
+
+```yaml
+- name: Convert CodeMeta to Zenodo
+  uses: escape2020/codemeta2zenodo@v1.1.0
+  with:
+    add_escape2020: true
 ```
+
 
 ## Inputs
 
@@ -51,6 +63,7 @@ Allow overwriting an existing `.zenodo.json` file:
 |-------|-------------|----------|---------|
 | `codemeta_file` | Path to the `codemeta.json` file | No | `codemeta.json` |
 | `overwrite` | Overwrite existing `.zenodo.json` file if it exists | No | `false` |
+| `add_escape2020` | Add ESCAPE2020 community and grant number to `.zenodo.json` | No | `false` |
 
 ## Outputs
 
@@ -131,6 +144,8 @@ jobs:
 ## About
 
 This action uses the [eossr](https://gitlab.com/escape-ossr/eossr) (ESCAPE Open Source Software Repository) container which provides tools for managing scientific software metadata.
+
+eossr v2.2.0 enables the `--add-escape2020` option to map CodeMeta funding information to Zenodo grant metadata.
 
 ### What is CodeMeta?
 

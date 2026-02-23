@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/escape-ossr/eossr:v2.1.1
+FROM registry.gitlab.com/escape-ossr/eossr:v2.2.0
 
 # Copy the entrypoint script
 COPY entrypoint.sh /entrypoint.sh
