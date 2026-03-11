@@ -87,13 +87,23 @@ create_test_codemeta() {
   "@type": "SoftwareSourceCode",
   "name": "test-software",
   "description": "A test software project",
-  "version": "1.0.0",
+    "softwareVersion": "1.0.0",
+    "license": "https://spdx.org/licenses/MIT",
+    "datePublished": "2026-03-11",
+    "readme": "https://github.com/example/test-software/blob/main/README.md",
   "author": [
     {
       "@type": "Person",
       "givenName": "Test",
       "familyName": "User"
     }
+    ],
+    "maintainer": [
+        {
+            "@type": "Person",
+            "givenName": "Test",
+            "familyName": "User"
+        }
   ]
 }
 EOF
@@ -179,7 +189,8 @@ test_real_entrypoint_e2e() {
     run_test "Test 5: Real entrypoint end-to-end"
     TEST_DIR=$(setup_test_dir)
 
-    create_test_codemeta "codemeta.json"
+    # Use the project's real codemeta.json as the valid test fixture
+    cp "$PROJECT_ROOT/codemeta.json" "$TEST_DIR/codemeta.json"
 
     if ! command -v eossr-codemeta2zenodo >/dev/null 2>&1 || ! command -v eossr-zenodo-metadata-validator >/dev/null 2>&1; then
         echo "Skipping real E2E test because eossr commands are not available in this environment"

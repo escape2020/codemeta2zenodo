@@ -4,6 +4,7 @@
   "name": "codemeta2zenodo",
   "description": "GitHub Action to convert codemeta.json files to .zenodo.json format using the eossr library for research software metadata management",
   "version": "1.2.0",
+  "softwareVersion": "1.2.0",
   "license": "https://spdx.org/licenses/MIT",
   "author": [
     {
