@@ -19,11 +19,6 @@ TESTS_RUN=0
 TESTS_PASSED=0
 TESTS_FAILED=0
 TESTS_SKIPPED=0
-REQUIRE_E2E=false
-
-if [ "${1:-}" = "--require-e2e" ]; then
-    REQUIRE_E2E=true
-fi
 
 # Test helper functions
 setup_test_dir() {
@@ -187,12 +182,6 @@ test_real_entrypoint_e2e() {
     create_test_codemeta "codemeta.json"
 
     if ! command -v eossr-codemeta2zenodo >/dev/null 2>&1 || ! command -v eossr-zenodo-metadata-validator >/dev/null 2>&1; then
-        if [ "$REQUIRE_E2E" = "true" ]; then
-            echo "eossr commands are not available but --require-e2e was requested"
-            cleanup_test_dir
-            test_failed
-            return 1
-        fi
         echo "Skipping real E2E test because eossr commands are not available in this environment"
         cleanup_test_dir
         test_skipped

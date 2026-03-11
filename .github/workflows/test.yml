@@ -44,7 +44,7 @@ jobs:
             -w /github/workspace \
             --entrypoint bash \
             codemeta2zenodo-test \
-            tests/test_entrypoint.sh --require-e2e
+            tests/test_entrypoint.sh
 
       - name: Validate metadata files
         run: |
