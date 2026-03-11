@@ -73,24 +73,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create test codemeta.json
-        run: |
-          cat > codemeta.json <<'EOF'
-          {
-            "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
-            "@type": "SoftwareSourceCode",
-            "name": "test-software",
-            "description": "A test software project",
-            "version": "1.0.0",
-            "author": [{
-              "@type": "Person",
-              "givenName": "Test",
-              "familyName": "User"
-            }]
-          }
-          EOF
-
-      - name: Test action (should succeed)
+      - name: Test action with project codemeta.json (should succeed)
         uses: ./
         with:
           codemeta_file: "codemeta.json"
