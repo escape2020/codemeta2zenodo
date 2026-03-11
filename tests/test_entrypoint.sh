@@ -18,6 +18,12 @@ NC='\033[0m' # No Color
 TESTS_RUN=0
 TESTS_PASSED=0
 TESTS_FAILED=0
+TESTS_SKIPPED=0
+REQUIRE_E2E=false
+
+if [ "${1:-}" = "--require-e2e" ]; then
+    REQUIRE_E2E=true
+fi
 
 # Test helper functions
 setup_test_dir() {
@@ -70,6 +76,11 @@ test_passed() {
 test_failed() {
     TESTS_FAILED=$((TESTS_FAILED + 1))
     echo -e "${RED}✗ Test failed${NC}"
+}
+
+test_skipped() {
+    TESTS_SKIPPED=$((TESTS_SKIPPED + 1))
+    echo -e "${YELLOW}- Test skipped${NC}"
 }
 
 # Create a minimal valid codemeta.json for testing
@@ -168,6 +179,44 @@ test_fixture_validity() {
     fi
 }
 
+# Test 5: Run the real entrypoint end-to-end with real eossr tools
+test_real_entrypoint_e2e() {
+    run_test "Test 5: Real entrypoint end-to-end"
+    TEST_DIR=$(setup_test_dir)
+
+    create_test_codemeta "codemeta.json"
+
+    if ! command -v eossr-codemeta2zenodo >/dev/null 2>&1 || ! command -v eossr-zenodo-metadata-validator >/dev/null 2>&1; then
+        if [ "$REQUIRE_E2E" = "true" ]; then
+            echo "eossr commands are not available but --require-e2e was requested"
+            cleanup_test_dir
+            test_failed
+            return 1
+        fi
+        echo "Skipping real E2E test because eossr commands are not available in this environment"
+        cleanup_test_dir
+        test_skipped
+        return 0
+    fi
+
+    if bash "$ENTRYPOINT" "codemeta.json" "true" "false"; then
+        if assert_file_exists ".zenodo.json"; then
+            cleanup_test_dir
+            test_passed
+            return 0
+        else
+            cleanup_test_dir
+            test_failed
+            return 1
+        fi
+    else
+        echo "Entrypoint failed during real E2E test"
+        cleanup_test_dir
+        test_failed
+        return 1
+    fi
+}
+
 # Main test execution
 echo "========================================"
 echo "CodeMeta2Zenodo Action Test Suite"
@@ -178,6 +227,7 @@ test_script_syntax
 test_script_executable
 test_missing_input
 test_fixture_validity
+test_real_entrypoint_e2e
 
 # Summary
 echo ""
@@ -186,6 +236,7 @@ echo "Test Summary"
 echo "========================================"
 echo -e "Tests run:    $TESTS_RUN"
 echo -e "${GREEN}Tests passed: $TESTS_PASSED${NC}"
+echo -e "${YELLOW}Tests skipped: $TESTS_SKIPPED${NC}"
 if [ $TESTS_FAILED -gt 0 ]; then
     echo -e "${RED}Tests failed: $TESTS_FAILED${NC}"
 else

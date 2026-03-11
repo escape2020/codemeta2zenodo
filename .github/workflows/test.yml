@@ -36,6 +36,16 @@ jobs:
           chmod +x tests/test_entrypoint.sh
           bash tests/test_entrypoint.sh
 
+      - name: Run shell tests in action container (real tools)
+        run: |
+          docker build -t codemeta2zenodo-test .
+          docker run --rm \
+            -v "${PWD}":/github/workspace \
+            -w /github/workspace \
+            --entrypoint bash \
+            codemeta2zenodo-test \
+            tests/test_entrypoint.sh --require-e2e
+
       - name: Validate metadata files
         run: |
           echo "Validating metadata files..."
