@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
