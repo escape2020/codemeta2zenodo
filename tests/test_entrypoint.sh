@@ -18,6 +18,7 @@ NC='\033[0m' # No Color
 TESTS_RUN=0
 TESTS_PASSED=0
 TESTS_FAILED=0
+TESTS_SKIPPED=0
 
 # Test helper functions
 setup_test_dir() {
@@ -72,6 +73,11 @@ test_failed() {
     echo -e "${RED}✗ Test failed${NC}"
 }
 
+test_skipped() {
+    TESTS_SKIPPED=$((TESTS_SKIPPED + 1))
+    echo -e "${YELLOW}- Test skipped${NC}"
+}
+
 # Create a minimal valid codemeta.json for testing
 create_test_codemeta() {
     local filename=${1:-codemeta.json}
@@ -81,13 +87,23 @@ create_test_codemeta() {
   "@type": "SoftwareSourceCode",
   "name": "test-software",
   "description": "A test software project",
-  "version": "1.0.0",
+    "softwareVersion": "1.0.0",
+    "license": "https://spdx.org/licenses/MIT",
+    "datePublished": "2026-03-11",
+    "readme": "https://github.com/example/test-software/blob/main/README.md",
   "author": [
     {
       "@type": "Person",
       "givenName": "Test",
       "familyName": "User"
     }
+    ],
+    "maintainer": [
+        {
+            "@type": "Person",
+            "givenName": "Test",
+            "familyName": "User"
+        }
   ]
 }
 EOF
@@ -168,6 +184,39 @@ test_fixture_validity() {
     fi
 }
 
+# Test 5: Run the real entrypoint end-to-end with real eossr tools
+test_real_entrypoint_e2e() {
+    run_test "Test 5: Real entrypoint end-to-end"
+    TEST_DIR=$(setup_test_dir)
+
+    # Use the project's real codemeta.json as the valid test fixture
+    cp "$PROJECT_ROOT/codemeta.json" "$TEST_DIR/codemeta.json"
+
+    if ! command -v eossr-codemeta2zenodo >/dev/null 2>&1 || ! command -v eossr-zenodo-metadata-validator >/dev/null 2>&1; then
+        echo "Skipping real E2E test because eossr commands are not available in this environment"
+        cleanup_test_dir
+        test_skipped
+        return 0
+    fi
+
+    if bash "$ENTRYPOINT" "codemeta.json" "true" "false"; then
+        if assert_file_exists ".zenodo.json"; then
+            cleanup_test_dir
+            test_passed
+            return 0
+        else
+            cleanup_test_dir
+            test_failed
+            return 1
+        fi
+    else
+        echo "Entrypoint failed during real E2E test"
+        cleanup_test_dir
+        test_failed
+        return 1
+    fi
+}
+
 # Main test execution
 echo "========================================"
 echo "CodeMeta2Zenodo Action Test Suite"
@@ -178,6 +227,7 @@ test_script_syntax
 test_script_executable
 test_missing_input
 test_fixture_validity
+test_real_entrypoint_e2e
 
 # Summary
 echo ""
@@ -186,6 +236,7 @@ echo "Test Summary"
 echo "========================================"
 echo -e "Tests run:    $TESTS_RUN"
 echo -e "${GREEN}Tests passed: $TESTS_PASSED${NC}"
+echo -e "${YELLOW}Tests skipped: $TESTS_SKIPPED${NC}"
 if [ $TESTS_FAILED -gt 0 ]; then
     echo -e "${RED}Tests failed: $TESTS_FAILED${NC}"
 else

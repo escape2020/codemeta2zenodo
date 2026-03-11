@@ -3,7 +3,8 @@
   "@type": "SoftwareSourceCode",
   "name": "codemeta2zenodo",
   "description": "GitHub Action to convert codemeta.json files to .zenodo.json format using the eossr library for research software metadata management",
-  "version": "1.1.0",
+  "version": "1.2.0",
+  "softwareVersion": "1.2.0",
   "license": "https://spdx.org/licenses/MIT",
   "author": [
     {
@@ -12,7 +13,10 @@
       "familyName": "Vuillaume",
       "email": "thomas.vuillaume@lapp.in2p3.fr",
       "@id": "https://orcid.org/0000-0002-5686-2078",
-      "affiliation": "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+      "affiliation": {
+        "@type": "Organization",
+        "name": "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+      }
     }
   ],
   "contributor": [],
@@ -23,7 +27,10 @@
       "familyName": "Vuillaume",
       "email": "thomas.vuillaume@lapp.in2p3.fr",
       "@id": "https://orcid.org/0000-0002-5686-2078",
-      "affiliation": "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+      "affiliation": {
+        "@type": "Organization",
+        "name": "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+      }
     }
   ],
   "programmingLanguage": [
@@ -44,8 +51,8 @@
   "issueTracker": "https://github.com/escape2020/codemeta2zenodo/issues",
   "readme": "https://github.com/escape2020/codemeta2zenodo/blob/main/README.md",
   "dateCreated": "2026-02-23",
-  "dateModified": "2026-02-23",
-  "datePublished": "2026-02-23",
+  "dateModified": "2026-03-11",
+  "datePublished": "2026-03-11",
   "keywords": [
     "codemeta",
     "zenodo",
@@ -106,5 +113,5 @@
       "url": "https://doi.org/10.5063/schema/codemeta-2.0"
     }
   ],
-  "funding": "ESCAPE - The European Science Cluster of Astronomy & Particle Physics ESFRI Research Infrastructures"
+  "funding": "https://doi.org/10.3030/824064"
 }
