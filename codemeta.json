@@ -13,7 +13,10 @@
       "familyName": "Vuillaume",
       "email": "thomas.vuillaume@lapp.in2p3.fr",
       "@id": "https://orcid.org/0000-0002-5686-2078",
-      "affiliation": "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+      "affiliation": {
+        "@type": "Organization",
+        "name": "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+      }
     }
   ],
   "contributor": [],
@@ -24,7 +27,10 @@
       "familyName": "Vuillaume",
       "email": "thomas.vuillaume@lapp.in2p3.fr",
       "@id": "https://orcid.org/0000-0002-5686-2078",
-      "affiliation": "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+      "affiliation": {
+        "@type": "Organization",
+        "name": "LAPP, Université Savoie Mont Blanc, CNRS/IN2P3, Annecy, France"
+      }
     }
   ],
   "programmingLanguage": [
