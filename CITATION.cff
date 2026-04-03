@@ -20,8 +20,8 @@ keywords:
   - "research-software"
   - "FAIR"
   - "open-science"
-version: 1.0.0
-date-released: "2026-02-23"
+version: 1.3.0
+date-released: "2026-04-03"
 preferred-citation:
   type: article
   title: "The ESCAPE Open-source Software and Service Repository"

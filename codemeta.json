@@ -3,8 +3,8 @@
   "@type": "SoftwareSourceCode",
   "name": "codemeta2zenodo",
   "description": "GitHub Action to convert codemeta.json files to .zenodo.json format using the eossr library for research software metadata management",
-  "version": "1.2.0",
-  "softwareVersion": "1.2.0",
+  "version": "1.3.0",
+  "softwareVersion": "1.3.0",
   "license": "https://spdx.org/licenses/MIT",
   "author": [
     {
@@ -51,8 +51,8 @@
   "issueTracker": "https://github.com/escape2020/codemeta2zenodo/issues",
   "readme": "https://github.com/escape2020/codemeta2zenodo/blob/main/README.md",
   "dateCreated": "2026-02-23",
-  "dateModified": "2026-03-11",
-  "datePublished": "2026-03-11",
+  "dateModified": "2026-04-03",
+  "datePublished": "2026-04-03",
   "keywords": [
     "codemeta",
     "zenodo",
@@ -70,7 +70,7 @@
       "@type": "SoftwareApplication",
       "name": "EOSSR",
       "url": "https://gitlab.com/escape-ossr/eossr",
-      "version": "2.2.0"
+      "version": "2.3.0"
     },
     {
       "@type": "SoftwareApplication",
